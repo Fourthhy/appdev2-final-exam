@@ -5,7 +5,7 @@ const User = require('../models/Users');
 
 const JWT_TOKEN = process.env.JWT_TOKEN
 
-router.post('/signin', async (req, res) => {
+router.post("/signin", async (req, res) => {
     const { email, passowrd } = req.body;
 
     if (!email || !password) {
