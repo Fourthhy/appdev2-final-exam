@@ -1,0 +1,32 @@
+// views/email/eventConfirmation.pug
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Event Confirmation
+    style.
+      body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+      .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+      h2 { color: #0056b3; }
+      p { margin-bottom: 10px; }
+      .footer { margin-top: 20px; font-size: 0.8em; color: #777; }
+  body
+    .container
+      h2 Event Confirmation
+      p Dear #{userName},
+      p Your event has been successfully created! Here are the details:
+      p
+        strong Title:
+        |  #{eventTitle}
+      p
+        strong Date:
+        |  #{eventDate}
+      p
+        strong Location:
+        |  #{eventLocation}
+      p Thank you for using our service.
+      .footer
+        p This is an automated email, please do not reply.
+        p &copy; #{currentYear} Your App Name. All rights reserved.

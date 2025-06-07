@@ -1,4 +1,6 @@
 const Event = require('../models/Event'); 
+const Email = require('../config/nodemailer');
+const User = require('../models/Users');
 
 exports.getAllEvents = async (req, res) => {
     try {
@@ -13,9 +15,11 @@ exports.getAllEvents = async (req, res) => {
 exports.createEvent = async (req, res) => {
     const { title, location, date, description } = req.body;
     const userId = req.userId; 
+
     if (!title || !location || !date || !description) {
         return res.status(400).json({ message: 'Please enter all event fields.' });
     }
+
     try {
         const newEvent = new Event({
             title,
@@ -24,14 +28,28 @@ exports.createEvent = async (req, res) => {
             description,
             userId,
         });
+
         const savedEvent = await newEvent.save();
         const populatedEvent = await Event.findById(savedEvent._id).populate('userId', 'name email');
+        const user = await User.findById(userId);
+        if (user) {
+            try {
+                await new Email(user, populatedEvent).sendEventConfirmation();
+                console.log(`Confirmation email sent to ${user.email} for event: ${populatedEvent.title}`);
+            } catch (error) {
+                console.error('Failed to send confirmation email:', error);
+            }
+        } else {
+            console.warn(`User with ID ${userId} not found for email confirmation.`);
+        }
+
         res.status(201).json(populatedEvent);
     } catch (error) {
         console.error('Error creating event:', error);
-        res.status(500).json({ message: 'Server error creating event.' });
+        res.status(500).json({ message: 'Internal Server Error: creating events' });
     }
 };
+
 exports.getMyEvents = async (req, res) => {
     const userId = req.userId;
     try {
