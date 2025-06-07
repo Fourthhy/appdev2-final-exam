@@ -75,3 +75,9 @@ The seeder script `seeder.js` populates your database with dummy user and event 
 ## 🛠️ .env.example File
 
 Create a file named `.env` in the root of your project and populate it with the following required environment variables, replacing the placeholder values:
+JWT_SECRET
+MONGODB_URI
+EMAIL_USER
+EMAIL_PASS
+EMAIL_HOST
+EMAIL_PORT
