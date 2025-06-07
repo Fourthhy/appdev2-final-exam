@@ -5,6 +5,6 @@ const { protect } = require('../middleware/authMiddleware');
 
 router.get('/', eventController.getAllEvents);
 router.post('/', protect, eventController.createEvent);
-router.get('/my-events', protect, eventController.getMyEvents); // Note: this path will be /api/events/my-events due to app.use in server.js
+router.get('/my-events', protect, eventController.getMyEvents);
 
 module.exports = router;

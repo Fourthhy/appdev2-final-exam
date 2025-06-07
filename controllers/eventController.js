@@ -1,6 +1,6 @@
 const Event = require('../models/Event'); 
 const Email = require('../config/nodemailer');
-const User = require('../models/Users');
+const User = require('../models/User');
 
 exports.getAllEvents = async (req, res) => {
     try {
